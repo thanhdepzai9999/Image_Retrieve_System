@@ -93,9 +93,7 @@ class ImgDialog extends React.Component {
           self.setState({
             show: showsearch,
             loading: false
-
           })
-
         }
         else if (response.status === 204) {
 
@@ -105,9 +103,6 @@ class ImgDialog extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-
-
-
   }
 
   render() {
