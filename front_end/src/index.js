@@ -25,7 +25,7 @@ const Demo = ({ classes }) => {
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
   const [croppedImage, setCroppedImage] = useState(null)
-  
+  const [imgs, setImgs] = useState(["adadsad"])
 
 
   const [clothesImg, setImg] = useState('https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000')
@@ -63,18 +63,12 @@ const Demo = ({ classes }) => {
 
   const onClose = useCallback(() => {
     setCroppedImage(null)
+    setImgs(null)
   }, [])
-
-  // const buttonStyle = {
-  //   minWidth: '56px',
-  //   width: '56px',
-  //   minHeight: '56px',
-  //   height: '56px',
-  //   borderRadius: '28px',
-  // };
-
+  
 
   return (
+
     
     <div>
       <div className={classes.cropContainer}>
@@ -84,7 +78,6 @@ const Demo = ({ classes }) => {
           rotation={rotation}
           zoom={zoom}
           aspect={4/3}
-          // width = {50}
           onCropChange={setCrop}
           onRotationChange={setRotation}
           onCropComplete={onCropComplete}
@@ -149,7 +142,7 @@ const Demo = ({ classes }) => {
           <input type="file" onChange={onImageChange} />
         </Button> 
   </div>  */}
-      <ImgDialog img={croppedImage} onClose={onClose} />
+      <ImgDialog img={croppedImage} onClose={onClose} show ={imgs}/>
     </div>
   )
 }

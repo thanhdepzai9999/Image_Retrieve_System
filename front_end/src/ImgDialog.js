@@ -48,11 +48,15 @@ function Transition(props) {
 }
 
 class ImgDialog extends React.Component {
-  state = {
-    open: false,
-    loading: false,
-    show: []
+  constructor(props){
+    super(props);
+    this.state = {
+      open : false,
+      loading: false,
+      show1: []
+    }
   }
+  
 
   handleClickOpen = () => {
     this.setState({ open: true })
@@ -61,16 +65,31 @@ class ImgDialog extends React.Component {
   handleClose = () => {
     this.setState({ open: false })
   }
+
+
+
+  componentDidUpdate(){
+    console.log(this.props)
+
+  }
+
   onClick = () =>{
       console.log(this.props.img)
+      console.log(this.props.show)
       this.setState({
           loading: true
       })
+      
       var showsearch = []
+      showsearch.push(this.props.show)
+      
     this.setState({
-        show: showsearch,
+        show1: showsearch,
         
     })
+    console.log(this.state.show1)
+  
+  
     //   var apiBaseUrl = "http://localhost:9000/users/";
     //   var self = this;
     //   var payload={
