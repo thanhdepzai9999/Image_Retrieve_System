@@ -10,7 +10,7 @@ import Slide from '@material-ui/core/Slide'
 import { css } from '@emotion/core';
 // First way to import
 import { HashLoader } from 'react-spinners';
-// import axios from 'axios';
+import axios from 'axios';
 import { Button } from 'antd';
 
 
@@ -72,62 +72,59 @@ class ImgDialog extends React.Component {
     console.log(this.props)
 
   }
+ 
+ 
+      
+      
+      
+  onClick = () => {
+    // console.log(this.state)
+    // console.log(this.props.img)
+    this.setState({
+      loading: true
+    })
+    var showsearch = []
+    this.setState({
+      show: showsearch,
 
-  onClick = () =>{
-      console.log(this.props.img)
-      console.log(this.props.show)
-      this.setState({
-          loading: true
+    })
+    // console.log(this.state)
+    console.log(this.props.img)
+    var apiBaseUrl = "http://0.0.0.0:9000/queryimage";
+    var self = this;
+    var payload = {
+      "image": this.props.img,
+
+    }
+    axios.post(apiBaseUrl, payload, {'headers': {'Content-Type':'application/json'}})
+      .then(function (response) {
+        console.log(response);
+        if (response.status === 200) {
+          console.log("Retrieve successfull");
+          showsearch.push(
+            <div>
+              Truy van anh thanh cong
+             </div>
+          )
+          self.setState({
+            show: showsearch,
+            loading: false
+
+          })
+
+        }
+        else if (response.status === 204) {
+
+          alert("Loi 204")
+        }
       })
-      
-      var showsearch = []
-      showsearch.push(this.props.show)
-      
-    this.setState({
-        show1: showsearch,
-        
-    })
-    this.setState({
-      show1: "Thanh dep zai"
-    })
-    console.log(this.state.show1)
-  
-  
-    //   var apiBaseUrl = "http://localhost:9000/users/";
-    //   var self = this;
-    //   var payload={
-    //     "str_base64": this.props.img,
-        
-    //   }
-    //   axios.post(apiBaseUrl, payload)
-    //  .then(function (response) {
-    //    console.log(response);
-    //    if(response.status === 200){
-    //      console.log("Retrieve successfull");
-    //      showsearch.push(
-    //        
-    //      )
-    //      this.setState({
-    //            show: showsearch,
-    //            loading:false
+      .catch(function (error) {
+        console.log(error);
+      });
 
-    //      })
 
-    //     //  var uploadScreen=[];
-    //     //  uploadScreen.push(<UploadPage appContext={self.props.appContext} role={self.state.loginRole}/>)
-    //     //  self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-    //    }
-    //    else if(response.status === 204){
-         
-    //      alert("Loi 204")
-    //    }
-    //  })
-    //  .catch(function (error) {
-    //    console.log(error);
-    //  });
-      
-      
-      
+
+
   }
 
   render() {
@@ -164,25 +161,25 @@ class ImgDialog extends React.Component {
             className={classes.img}
           />
         </div>
-        <br/>
-        <div className ="container" style = {{padding: 10}}>
-        <h1>Tim kiem ket qua tuong tu</h1>
-        {/* <button onClick = {this.onClick}> Tim kiem</button> */}
-        <Button type="primary" icon="search" onClick = {this.onClick}>
-          Search
+        <br />
+        <div className="container" style={{ padding: 10 }}>
+          <h1>Tim kiem ket qua tuong tu</h1>
+          {/* <button onClick = {this.onClick}> Tim kiem</button> */}
+          <Button type="primary" icon="search" onClick={this.onClick}>
+            Search
         </Button>
-            <div className='sweet-loading'>
-                <HashLoader
-                css={override}
-                sizeUnit={"px"}
-                size={120}
-                color={'#123abc'}
-                loading={this.state.loading}
-                />
-            </div>
-            <div>
-                {this.state.show1}
-            </div>
+          <div className='sweet-loading'>
+            <HashLoader
+              css={override}
+              sizeUnit={"px"}
+              size={120}
+              color={'#123abc'}
+              loading={this.state.loading}
+            />
+          </div>
+          <div>
+            {this.state.show}
+          </div>
         </div>
       </Dialog>
     )
