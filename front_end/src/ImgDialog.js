@@ -87,6 +87,9 @@ class ImgDialog extends React.Component {
         show1: showsearch,
         
     })
+    this.setState({
+      show1: "Thanh dep zai"
+    })
     console.log(this.state.show1)
   
   
@@ -178,7 +181,7 @@ class ImgDialog extends React.Component {
                 />
             </div>
             <div>
-                {this.state.show}
+                {this.state.show1}
             </div>
         </div>
       </Dialog>
