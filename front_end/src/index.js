@@ -8,11 +8,10 @@ import { withStyles } from '@material-ui/core/styles'
 import ImgDialog from './ImgDialog'
 import getCroppedImg from './cropImage'
 import { styles } from './styles'
-<<<<<<< HEAD
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { HashLoader, BarLoader } from 'react-spinners';
-=======
-import { HashLoader,BarLoader } from 'react-spinners';
->>>>>>> cb3f5f20a7c6fe2a4f4a342bad00b11c0254eb1e
 // import { Upload, message, Icon, Modal , Input } from 'antd'
 import 'antd/dist/antd.css'
 import './style.css'
@@ -98,15 +97,15 @@ const Demo = ({ classes }) => {
   const [loading, setLoading] = useState(false)
   const [showImgs, setShowImgs] = useState([])
 
-  const onClick = ()=>{
+  const onClick = () => {
     setLoading(true)
 
     var apiBaseUrl = "http://0.0.0.0:9000/queryimage";
     var payload = {
-      "image": {requestImage},
+      "image": { requestImage },
 
     }
-    console.log({requestImage})
+    console.log({ requestImage })
     axios.post(apiBaseUrl, payload, { 'headers': { 'Content-Type': 'application/json' } })
       .then(function (response) {
         console.log(response);
@@ -114,26 +113,26 @@ const Demo = ({ classes }) => {
           console.log("Retrieve successfull");
           setLoading(false)
           var showlist = []
-          let imgs = response.data.map((img, index)=>{
-            
+          let imgs = response.data.map((img, index) => {
+
 
             return (
               <ModalImage
-                    src={img.url}
-                    alt={`Metadata Image`}
-                    ratio={`3:2`}
-                  />
+                src={img.url}
+                alt={`Metadata Image`}
+                ratio={`3:2`}
+              />
             )
           })
           showlist.push(
-              <section style={{ padding: "50px" }}>
-                <div class="text-center">
-                  <h1 class="text-dark display-4 bg-warning">Result</h1>
-                </div>
-                <div class="row text-center text-lg-left" style={{ padding: "15px" }}>
-                  {imgs}
-                </div>
-              </section>
+            <section style={{ padding: "50px" }}>
+              <div class="text-center">
+                <h1 class="text-dark display-4 bg-warning">Result</h1>
+              </div>
+              <div class="row text-center text-lg-left" style={{ padding: "15px" }}>
+                {imgs}
+              </div>
+            </section>
           )
           setShowImgs(showlist)
 
@@ -152,7 +151,7 @@ const Demo = ({ classes }) => {
 
 
 
-  const [clothesImg, setImg] = useState('https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000')
+  const [clothesImg, setImg] = useState('https://www.refinery29.com/en-us/2019/03/226043/karl-lagerfeld-final-chanel-show-paris-fashion-week-2019')
 
 
 
@@ -273,18 +272,42 @@ const Demo = ({ classes }) => {
         </Button>
       </div>
       <ImgDialog img={croppedImage} onClose={onClose} />
+      <FormGroup row className={"justify-content-center"}>
+        <FormControlLabel
+          className={"col-1"}
+          control={
+            <Checkbox
+              value="checkedB"
+              color="primary"
+            />
+          }
+          labelPlacement="top"
+          label="Color"
+        />
+        <FormControlLabel
+          className={"col-1"}
+          control={
+            <Checkbox
+              value="checkedB"
+              color="primary"
+            />
+          }
+          labelPlacement="top"
+          label="Shape"
+        />
+      </FormGroup>
       <div class="text-center">
         <Button class="btn btn-info w-50" type="primary" icon="search" onClick={onClick}>
           Search
         </Button>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <div class='sweet-loading'>
           <BarLoader
             css={override}
             sizeUnit={"px"}
-            height = {4}
-            width = {1000}
+            height={4}
+            width={1000}
             color={'#123abc'}
             loading={loading} />
         </div>
