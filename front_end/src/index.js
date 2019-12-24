@@ -8,7 +8,11 @@ import { withStyles } from '@material-ui/core/styles'
 import ImgDialog from './ImgDialog'
 import getCroppedImg from './cropImage'
 import { styles } from './styles'
+<<<<<<< HEAD
 import { HashLoader, BarLoader } from 'react-spinners';
+=======
+import { HashLoader,BarLoader } from 'react-spinners';
+>>>>>>> cb3f5f20a7c6fe2a4f4a342bad00b11c0254eb1e
 // import { Upload, message, Icon, Modal , Input } from 'antd'
 import 'antd/dist/antd.css'
 import './style.css'

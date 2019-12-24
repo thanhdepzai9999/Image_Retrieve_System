@@ -97,7 +97,10 @@ class ImgDialog extends React.Component {
             className={classes.img}
           />
         </div>
+<<<<<<< HEAD
         <br />
+=======
+>>>>>>> cb3f5f20a7c6fe2a4f4a342bad00b11c0254eb1e
       </Dialog>
     )
   }
