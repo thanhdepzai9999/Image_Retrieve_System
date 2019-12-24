@@ -17,6 +17,7 @@ def example():
     try:
         string = request.json
         image = string['image']
+
         return "hihi",200
     except:
         return 404

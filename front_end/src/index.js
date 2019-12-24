@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles'
 import ImgDialog from './ImgDialog'
 import getCroppedImg from './cropImage'
 import { styles } from './styles'
-import { HashLoader } from 'react-spinners';
+import { HashLoader,BarLoader } from 'react-spinners';
 // import { Upload, message, Icon, Modal , Input } from 'antd'
 import 'antd/dist/antd.css'
 import './style.css'
@@ -121,19 +121,24 @@ class ButtonSearch extends React.Component {
   }
 
   render() {
+    const { loading } = this.state
     return (
-      <div class="d-flex justify-content-center">
+      <div class="text-center">
         <Button class="btn btn-info w-50" type="primary" icon="search" onClick={this.onClick}>
           Search
         </Button>
-        <div class='sweet-loading'>
-          <HashLoader
-            css={override}
-            sizeUnit={"px"}
-            size={120}
-            color={'#123abc'}
-            loading={this.state.loading} />
-        </div>
+        <br/><br/>
+        {loading &&
+          <div class='sweet-loading'>
+            <BarLoader
+              css={override}
+              sizeUnit={"px"}
+              size={80}
+              height={4}
+              width={1000}
+              color={'#123abc'}
+              loading={this.state.loading} />
+          </div>}
       </div>
     )
   }

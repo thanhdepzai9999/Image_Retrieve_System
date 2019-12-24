@@ -139,26 +139,6 @@ class ImgDialog extends React.Component {
             className={classes.img}
           />
         </div>
-        <br />
-        <div className="container" style={{ padding: 10 }}>
-          <h1>Tim kiem ket qua tuong tu</h1>
-          {/* <button onClick = {this.onClick}> Tim kiem</button> */}
-          <Button type="primary" icon="search" onClick={this.onClick}>
-            Search
-        </Button>
-          <div className='sweet-loading'>
-            <HashLoader
-              css={override}
-              sizeUnit={"px"}
-              size={120}
-              color={'#123abc'}
-              loading={this.state.loading}
-            />
-          </div>
-          <div>
-            {this.state.show}
-          </div>
-        </div>
       </Dialog>
     )
   }
