@@ -54,7 +54,7 @@ const Demo = ({ classes }) => {
         croppedAreaPixels,
         rotation
       )
-      console.log('Duyt moe anh Base64', { croppedImage })
+      // console.log('Duyt moe anh Base64', { croppedImage })
       setCroppedImage(croppedImage)
     } catch (e) {
       console.error(e)
@@ -75,6 +75,7 @@ const Demo = ({ classes }) => {
 
 
   return (
+    
     <div>
       <div className={classes.cropContainer}>
         <Cropper
@@ -136,7 +137,7 @@ const Demo = ({ classes }) => {
       </div>
         <div className = "container" style= {{padding: 15}}>
             <h1>Select Image</h1>
-            <input  type="file"   onChange={onImageChange} />
+            <input  type="file" title ="Chon file"  onChange={onImageChange} />
           </div>
 
           {/* <div className = "container" style= {{padding: 30}}>

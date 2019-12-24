@@ -62,18 +62,11 @@ class ImgDialog extends React.Component {
     this.setState({ open: false })
   }
   onClick = () =>{
-      console.log(this.state)
       console.log(this.props.img)
       this.setState({
           loading: true
       })
       var showsearch = []
-
-      showsearch.push(
-        <div>
-            Truy van anh thanh cong
-        </div>
-    )
     this.setState({
         show: showsearch,
         
@@ -81,21 +74,19 @@ class ImgDialog extends React.Component {
     //   var apiBaseUrl = "http://localhost:9000/users/";
     //   var self = this;
     //   var payload={
-    //     "url": this.props.img,
+    //     "str_base64": this.props.img,
         
     //   }
-    //   axios.post(apiBaseUrl+'', payload)
+    //   axios.post(apiBaseUrl, payload)
     //  .then(function (response) {
     //    console.log(response);
     //    if(response.status === 200){
     //      console.log("Retrieve successfull");
     //      showsearch.push(
-    //          <div>
-    //              Truy van anh thanh cong
-    //          </div>
+    //        
     //      )
     //      this.setState({
-    //          show: showsearch,
+    //            show: showsearch,
     //            loading:false
 
     //      })
