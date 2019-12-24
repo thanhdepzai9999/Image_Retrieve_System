@@ -8,13 +8,13 @@ import { withStyles } from '@material-ui/core/styles'
 import ImgDialog from './ImgDialog'
 import getCroppedImg from './cropImage'
 import { styles } from './styles'
-import { HashLoader } from 'react-spinners';
+import { HashLoader, BarLoader } from 'react-spinners';
 // import { Upload, message, Icon, Modal , Input } from 'antd'
 import 'antd/dist/antd.css'
 import './style.css'
 import { css } from '@emotion/core';
 import axios from 'axios';
-import ModalImage from './ModalImage'
+import ModalImage from './ModalImage';
 
 
 const override = css`
@@ -82,63 +82,6 @@ function Footer() {
   )
 }
 
-class ButtonSearch extends React.Component {
-  state = {
-    loading: false
-  }
-
-  onClick = () => {
-    // console.log(this.state)
-    // console.log(this.props.img)
-    this.setState({
-      loading: true
-    })
-    // console.log(this.state)
-    console.log(this.props)
-    var apiBaseUrl = "http://0.0.0.0:9000/queryimage";
-    var self = this;
-    var payload = {
-      "image": this.props.img,
-
-    }
-    axios.post(apiBaseUrl, payload, { 'headers': { 'Content-Type': 'application/json' } })
-      .then(function (response) {
-        console.log(response);
-        if (response.status === 200) {
-          console.log("Retrieve successfull");
-          self.setState({
-            loading: false
-          })
-        }
-        else if (response.status === 204) {
-
-          alert("Loi 204")
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  render() {
-    return (
-      <div class="d-flex justify-content-center">
-        <Button class="btn btn-info w-50" type="primary" icon="search" onClick={this.onClick}>
-          Search
-        </Button>
-        <div class='sweet-loading'>
-          <HashLoader
-            css={override}
-            sizeUnit={"px"}
-            size={120}
-            color={'#123abc'}
-            loading={this.state.loading} />
-        </div>
-      </div>
-    )
-  }
-}
-
 
 const Demo = ({ classes }) => {
 
@@ -148,6 +91,60 @@ const Demo = ({ classes }) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
   const [croppedImage, setCroppedImage] = useState(null)
   const [requestImage, setRequestImage] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [showImgs, setShowImgs] = useState([])
+
+  const onClick = ()=>{
+    setLoading(true)
+
+    var apiBaseUrl = "http://0.0.0.0:9000/queryimage";
+    var payload = {
+      "image": {requestImage},
+
+    }
+    console.log({requestImage})
+    axios.post(apiBaseUrl, payload, { 'headers': { 'Content-Type': 'application/json' } })
+      .then(function (response) {
+        console.log(response);
+        if (response.status === 200) {
+          console.log("Retrieve successfull");
+          setLoading(false)
+          var showlist = []
+          let imgs = response.data.map((img, index)=>{
+            
+
+            return (
+              <ModalImage
+                    src={img.url}
+                    alt={`Metadata Image`}
+                    ratio={`3:2`}
+                  />
+            )
+          })
+          showlist.push(
+              <section style={{ padding: "50px" }}>
+                <div class="text-center">
+                  <h1 class="text-dark display-4 bg-warning">Result</h1>
+                </div>
+                <div class="row text-center text-lg-left" style={{ padding: "15px" }}>
+                  {imgs}
+                </div>
+              </section>
+          )
+          setShowImgs(showlist)
+
+
+        }
+        else if (response.status === 204) {
+
+          alert("Loi 204")
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
 
 
 
@@ -179,7 +176,7 @@ const Demo = ({ classes }) => {
         croppedAreaPixels,
         rotation
       )
-      console.log('ahihi', { croppedImage })
+      // console.log('ahihi', { croppedImage })
       setCroppedImage(croppedImage)
     } catch (e) {
       console.error(e)
@@ -193,18 +190,10 @@ const Demo = ({ classes }) => {
       croppedAreaPixels,
       rotation
     )
-    console.log(requestImage);
     setRequestImage(requestImage)
 
   }, [croppedAreaPixels, rotation])
 
-  // const buttonStyle = {
-  //   minWidth: '56px',
-  //   width: '56px',
-  //   minHeight: '56px',
-  //   height: '56px',
-  //   borderRadius: '28px',
-  // };
 
 
   return (
@@ -229,7 +218,6 @@ const Demo = ({ classes }) => {
           rotation={rotation}
           zoom={zoom}
           aspect={4 / 3}
-          // width = {50}
           onCropChange={setCrop}
           onRotationChange={setRotation}
           onCropComplete={onCropComplete}
@@ -281,51 +269,23 @@ const Demo = ({ classes }) => {
         </Button>
       </div>
       <ImgDialog img={croppedImage} onClose={onClose} />
-      <div className="container" style={{ padding: 10 }}>
-        <ButtonSearch img={requestImage} />
+      <div class="text-center">
+        <Button class="btn btn-info w-50" type="primary" icon="search" onClick={onClick}>
+          Search
+        </Button>
+        <br/>
+        <br/>
+        <div class='sweet-loading'>
+          <BarLoader
+            css={override}
+            sizeUnit={"px"}
+            height = {4}
+            width = {1000}
+            color={'#123abc'}
+            loading={loading} />
+        </div>
       </div>
-      <section style={{ padding: "50px" }}>
-        <div class="text-center">
-          <h1 class="text-dark display-4 bg-warning">Result</h1>
-        </div>
-        <div class="row text-center text-lg-left" style={{ padding: "15px" }}>
-          <ModalImage
-            src={'./logo4.png'}
-            alt={`Metadata Image`}
-            ratio={`3:2`}
-          />
-          <ModalImage
-            src={'./logo4.png'}
-            alt={`Metadata Image`}
-            ratio={`3:2`}
-          />
-          <ModalImage
-            src={'./logo4.png'}
-            alt={`Metadata Image`}
-            ratio={`3:2`}
-          />
-          <ModalImage
-            src={'./logo4.png'}
-            alt={`Metadata Image`}
-            ratio={`3:2`}
-          />
-          <ModalImage
-            src={'./logo4.png'}
-            alt={`Metadata Image`}
-            ratio={`3:2`}
-          />
-          <ModalImage
-            src={'./logo4.png'}
-            alt={`Metadata Image`}
-            ratio={`3:2`}
-          />
-          <ModalImage
-            src={'./logo4.png'}
-            alt={`Metadata Image`}
-            ratio={`3:2`}
-          />
-        </div>
-      </section>
+      {showImgs}
       <Footer />
     </div>
   )

@@ -17,7 +17,20 @@ def example():
     try:
         string = request.json
         image = string['image']
-        return "hihi",200
+        return jsonify(
+            [{
+                "url": "./image/nhapdulieu.png",
+                "description": "anhasdsad"
+            },
+            {
+                "url": "./image/nhapdulieu.png",
+                "description": "anhasdsad"
+            },
+            {
+                "url": "./image/nhapdulieu.png",
+                "description": "anhasdsad"
+            }]
+        ),200
     except:
         return 404
 
