@@ -26,26 +26,29 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
 
   // set each dimensions to double largest dimension to allow for a safe area for the
   // image to rotate in without being clipped by canvas context
+//  đặt mỗi kích thước thành gấp đôi kích thước lớn nhất để cho phép một khu vực an toàn cho
+//  hình ảnh để xoay trong mà không bị cắt bởi bối cảnh canvas
   canvas.width = safeArea
   canvas.height = safeArea
-
-  // translate canvas context to a central location on image to allow rotating around the center.
+// vẽ hình ảnh xoay và lưu trữ dữ liệu.
+// translate canvas context to a central location on image to allow rotating around the center.
   ctx.translate(safeArea / 2, safeArea / 2)
   ctx.rotate(getRadianAngle(rotation))
   ctx.translate(-safeArea / 2, -safeArea / 2)
 
-  // draw rotated image and store data.
+//vẽ hình ảnh xoay và lưu trữ dữ liệu.
+// draw rotated image and store data.
   ctx.drawImage(
     image,
     safeArea / 2 - image.width * 0.5,
     safeArea / 2 - image.height * 0.5
   )
   const data = ctx.getImageData(0, 0, safeArea, safeArea)
-
+//đặt chiều rộng vải thành kích thước cắt mong muốn cuối cùng - điều này sẽ xóa bối cảnh hiện có
   // set canvas width to final desired crop size - this will clear existing context
   canvas.width = pixelCrop.width
   canvas.height = pixelCrop.height
-
+//dán hình ảnh xoay được tạo với độ lệch chính xác cho các giá trị x, y.
   // paste generated rotate image with correct offsets for x,y crop values.
   ctx.putImageData(
     data,
@@ -54,12 +57,13 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   )
 
   // As Base64 string
-  // return canvas.toDataURL('image/jpeg');
+  return canvas.toDataURL('image/jpeg');
 
   // As a blob
-  return new Promise(resolve => {
-    canvas.toBlob(file => {
-      resolve(URL.createObjectURL(file))
-    }, 'image/jpeg')
-  })
+  // return new Promise(resolve => {
+  //   canvas.toBlob(file => {
+  //     resolve(URL.createObjectURL(file))
+  //   }, 'image/jpeg')
+    
+  // })
 }

@@ -8,10 +8,13 @@ import { withStyles } from '@material-ui/core/styles'
 import ImgDialog from './ImgDialog'
 import getCroppedImg from './cropImage'
 import { styles } from './styles'
-import { Upload, message, Icon, Modal , Input } from 'antd'
+// import { Upload, message, Icon, Modal , Input } from 'antd'
 import 'antd/dist/antd.css'
+import './style.css'
 
-// const dogImg =
+
+
+// const clothesImg =
 //   'https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000'
 
 
@@ -25,7 +28,7 @@ const Demo = ({ classes }) => {
   
 
 
-  const [dogImg, setImg] = useState('https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000')
+  const [clothesImg, setImg] = useState('https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000')
 
 
 
@@ -47,11 +50,11 @@ const Demo = ({ classes }) => {
   const showCroppedImage = useCallback(async () => {
     try {
       const croppedImage = await getCroppedImg(
-        dogImg,
+        clothesImg,
         croppedAreaPixels,
         rotation
       )
-      console.log('donee', { croppedImage })
+      console.log('Duyt moe anh Base64', { croppedImage })
       setCroppedImage(croppedImage)
     } catch (e) {
       console.error(e)
@@ -62,16 +65,25 @@ const Demo = ({ classes }) => {
     setCroppedImage(null)
   }, [])
 
+  // const buttonStyle = {
+  //   minWidth: '56px',
+  //   width: '56px',
+  //   minHeight: '56px',
+  //   height: '56px',
+  //   borderRadius: '28px',
+  // };
+
 
   return (
     <div>
       <div className={classes.cropContainer}>
         <Cropper
-          image={dogImg}
+          image={clothesImg}
           crop={crop}
           rotation={rotation}
           zoom={zoom}
           aspect={4/3}
+          // width = {50}
           onCropChange={setCrop}
           onRotationChange={setRotation}
           onCropComplete={onCropComplete}
@@ -122,10 +134,20 @@ const Demo = ({ classes }) => {
           Show Result
         </Button>
       </div>
-        <div>
+        <div className = "container" style= {{padding: 15}}>
             <h1>Select Image</h1>
-            <input type="file" name="myImage" onChange={onImageChange} />
+            <input  type="file"   onChange={onImageChange} />
           </div>
+
+          {/* <div className = "container" style= {{padding: 30}}>
+        <Button
+          containerElement="label"
+          backgroundColor='#293C8E'
+          style={buttonStyle}
+          >
+          <input type="file" onChange={onImageChange} />
+        </Button> 
+  </div>  */}
       <ImgDialog img={croppedImage} onClose={onClose} />
     </div>
   )

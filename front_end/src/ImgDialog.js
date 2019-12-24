@@ -9,9 +9,10 @@ import CloseIcon from '@material-ui/icons/Close'
 import Slide from '@material-ui/core/Slide'
 import { css } from '@emotion/core';
 // First way to import
-import { ClipLoader } from 'react-spinners';
-// Another way to import. This is recommended to reduce bundle size
-// import ClipLoader from 'react-spinners/ClipLoader';
+import { HashLoader } from 'react-spinners';
+// import axios from 'axios';
+import { Button } from 'antd';
+
 
 const override = css`
     display: block;
@@ -49,7 +50,8 @@ function Transition(props) {
 class ImgDialog extends React.Component {
   state = {
     open: false,
-    loading: false
+    loading: false,
+    show: []
   }
 
   handleClickOpen = () => {
@@ -65,6 +67,53 @@ class ImgDialog extends React.Component {
       this.setState({
           loading: true
       })
+      var showsearch = []
+
+      showsearch.push(
+        <div>
+            Truy van anh thanh cong
+        </div>
+    )
+    this.setState({
+        show: showsearch,
+        
+    })
+    //   var apiBaseUrl = "http://localhost:9000/users/";
+    //   var self = this;
+    //   var payload={
+    //     "url": this.props.img,
+        
+    //   }
+    //   axios.post(apiBaseUrl+'', payload)
+    //  .then(function (response) {
+    //    console.log(response);
+    //    if(response.status === 200){
+    //      console.log("Retrieve successfull");
+    //      showsearch.push(
+    //          <div>
+    //              Truy van anh thanh cong
+    //          </div>
+    //      )
+    //      this.setState({
+    //          show: showsearch,
+    //            loading:false
+
+    //      })
+
+    //     //  var uploadScreen=[];
+    //     //  uploadScreen.push(<UploadPage appContext={self.props.appContext} role={self.state.loginRole}/>)
+    //     //  self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
+    //    }
+    //    else if(response.status === 204){
+         
+    //      alert("Loi 204")
+    //    }
+    //  })
+    //  .catch(function (error) {
+    //    console.log(error);
+    //  });
+      
+      
       
   }
 
@@ -103,18 +152,24 @@ class ImgDialog extends React.Component {
           />
         </div>
         <br/>
-        <div>
-            Ket qua tim kiem tuong tu 
-            <button onClick = {this.onClick}> Test</button>
+        <div className ="container" style = {{padding: 10}}>
+        <h1>Tim kiem ket qua tuong tu</h1>
+        {/* <button onClick = {this.onClick}> Tim kiem</button> */}
+        <Button type="primary" icon="search" onClick = {this.onClick}>
+          Search
+        </Button>
             <div className='sweet-loading'>
-        <ClipLoader
-          css={override}
-          sizeUnit={"px"}
-          size={150}
-          color={'#123abc'}
-          loading={this.state.loading}
-        />
-      </div>
+                <HashLoader
+                css={override}
+                sizeUnit={"px"}
+                size={120}
+                color={'#123abc'}
+                loading={this.state.loading}
+                />
+            </div>
+            <div>
+                {this.state.show}
+            </div>
         </div>
       </Dialog>
     )
