@@ -34,17 +34,13 @@ CORS(app,support_credentials=True)
 @app.route('/queryimage', methods = ['POST'])
 @cross_origin(support_credentials=True)
 def example():
-    print("toang")
     try:
-        print("hihi")
         string = request.json
-        print("hihi1")
         image = string['image']["requestImage"]
-        print("hihi2")
         im = decodeImg(image)
-        print("hihi3")
+        print("trich xuat dac trung")
         picture_feature, encode = res_feature.extract(im)
-        print("hihi4")
+        print("query")
         res= es.search(index='test-index',body={
         'query':{
             'match':{
@@ -52,7 +48,7 @@ def example():
                 }
             }
         }, size = 25,request_timeout=60)
-        print("wow")
+        print("ranking")
         queryimage = []
         for hit in res['hits']['hits']:
             queryimage.append(hit['_source'])
@@ -60,7 +56,6 @@ def example():
         queryimage=rerank(picture_feature,queryimage)
 
         return jsonify(queryimage),200
-        return "toang",200
     except Exception as e:
         print(e)
         return 404
