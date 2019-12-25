@@ -96,9 +96,13 @@ const Demo = ({ classes }) => {
   const [requestImage, setRequestImage] = useState(null)
   const [loading, setLoading] = useState(false)
   const [showImgs, setShowImgs] = useState([])
+  const [color,setColor] = useState(false)
+  const [shape,setShape] = useState(false)
+
 
   const onClick = () => {
     setLoading(true)
+
 
     var apiBaseUrl = "http://127.0.0.1:8086/queryimage";
     var payload = {
@@ -280,6 +284,7 @@ const Demo = ({ classes }) => {
             <Checkbox
               value="checkedB"
               color="primary"
+              onClick = {setColor(true)}
             />
           }
           labelPlacement="top"
@@ -291,6 +296,7 @@ const Demo = ({ classes }) => {
             <Checkbox
               value="checkedB"
               color="primary"
+              onClick={setShape(true)}
             />
           }
           labelPlacement="top"

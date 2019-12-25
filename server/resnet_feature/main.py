@@ -69,13 +69,14 @@ class Resnet_feature:
         encode = ""
         for i in range(128):
             feature_segment = d_hist[i*16:(i+1)*16]
-            d = 10
+            d = 100000
             clust = 0
             for j in range(len(self.cluster_centers[i])):
                 v = np.fromstring(self.cluster_centers[i][j].replace("\n","")[1:-2], dtype=np.float32, sep=' ')
                 dist = self.distance(feature_segment,v,"d1")
                 if d>dist:
                     clust = j
+                    d = dist
             encode = encode + str(j) + " "
         return encode[:-2]
     def extract(self,d_img):
