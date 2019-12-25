@@ -100,7 +100,7 @@ const Demo = ({ classes }) => {
   const onClick = () => {
     setLoading(true)
 
-    var apiBaseUrl = "http://0.0.0.0:9000/queryimage";
+    var apiBaseUrl = "http://127.0.0.1:8086/queryimage";
     var payload = {
       "image": { requestImage },
 
@@ -109,6 +109,7 @@ const Demo = ({ classes }) => {
     axios.post(apiBaseUrl, payload, { 'headers': { 'Content-Type': 'application/json' } })
       .then(function (response) {
         console.log(response);
+        console.log(response.data)
         if (response.status === 200) {
           console.log("Retrieve successfull");
           setLoading(false)
@@ -220,7 +221,7 @@ const Demo = ({ classes }) => {
           crop={crop}
           rotation={rotation}
           zoom={zoom}
-          aspect={4 / 3}
+          aspect={4 / 4}
           onCropChange={setCrop}
           onRotationChange={setRotation}
           onCropComplete={onCropComplete}
